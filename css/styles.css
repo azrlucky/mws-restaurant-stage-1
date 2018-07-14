@@ -52,12 +52,18 @@ header {
   max-width: 1100px;
   margin: 60px auto 0;
 }
+#maincontent::after, #maincontent::before {
+  content: '';
+  display: block;
+  clear: both;
+}
 #footer {
   background-color: #444;
   color: #aaa;
   font-size: 8pt;
   letter-spacing: 1px;
-  padding: 25px;
+  padding: 15px 25px;
+  height: 50px;
   text-align: center;
   text-transform: uppercase;
 }
@@ -237,8 +243,7 @@ nav h1 a {
 }
 .inside #footer {
   bottom: 0;
-  position: absolute;
-  width: 50%;
+  width: 100%;
 }
 #restaurant-name {
   color: #f18200;
@@ -320,7 +325,7 @@ nav h1 a {
   position: relative;
   left: 0;
   color: #fff;
-  font-size: 5vw;
+  font-size: 22px;
   font-weight: 100;
   letter-spacing: 1px;
   line-height: 0;
@@ -341,6 +346,11 @@ nav h1 a {
   letter-spacing: 1px;
   font-size: 16px;
   border-radius: 3px;
+}
+
+#review-comments {
+  font-size: 18px;
+  color: #666;
 }
 #restaurant-hours td {
   color: #666;
@@ -382,9 +392,30 @@ nav h1 a {
   }
 }
 
+@media screen and (min-width: 665px){
+  .inside #restaurant-details, .inside #map-container {
+    width: 50%;
+    height: calc(100vh - 160px);
+  }
+  .inside #restaurant-details {
+    float: left;
+    overflow-y: scroll;
+  }
+  .inside #map-container {
+    float: right;
+  }
+  #review-name-wrapper p {
+    font-size: 16px;
+  }
+
+}
+
 @media screen and (min-width: 846px) {
   #restaurants-list li {
     width: 31.7%;
+  }
+  #review-name-wrapper p {
+    font-size: 22px;
   }
 
   #restaurants-list li:nth-child(3n + 3) {
