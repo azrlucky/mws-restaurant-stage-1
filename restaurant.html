@@ -23,7 +23,7 @@
       </h1>
     </nav>
     <!-- Beginning breadcrumb -->
-    <ul id="breadcrumb">
+    <ul id="breadcrumb" role="navigation" aria-label="breadcrumb">
       <li>
         <a href="/">Home</a>
       </li>
@@ -37,13 +37,13 @@
   <main id="maincontent">
     <!-- Beginning map -->
     <section id="map-container">
-      <div id="map"></div>
+      <div id="map" role="application" aria-label="location"></div>
     </section>
     <!-- End map -->
     <div id="restaurant-details">
       <!-- Beginning restaurant -->
       <section id="restaurant-container">
-        <h1 id="restaurant-name"></h1>
+        <h2 id="restaurant-name"></h2>
         <div id="resto-card-wrapper">
           <img id="restaurant-img">
           <p id="restaurant-cuisine"></p>
@@ -75,7 +75,7 @@
   <!-- Database helpers -->
   <script type="text/javascript" src="js/dbhelper.js"></script>
   <!-- Main javascript file -->
-  <script type="text/javascript" charset="utf-8" src="js/start.js"></script>
+  <!-- <script type="text/javascript" charset="utf-8" src="js/start.js"></script> -->
   <script type="text/javascript" src="js/restaurant_info.js"></script>
   <!-- Google Maps -->
   <!--  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA_tKbW6A5pQ-eupxI56myUnHLqYCzOjKo&libraries=places&callback=initMap"></script> -->
