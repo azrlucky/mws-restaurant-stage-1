@@ -32,12 +32,23 @@ fetchNeighborhoods = () => {
  */
 fillNeighborhoodsHTML = (neighborhoods = self.neighborhoods) => {
   const select = document.getElementById('neighborhoods-select');
-  neighborhoods.forEach(neighborhood => {
+  neighborhoods.forEach((neighborhood, index) => {
     const option = document.createElement('option');
     option.innerHTML = neighborhood;
     option.value = neighborhood;
+    option.id = 'neighborhood-listitem-' + (index + 1);
+    option.setAttribute('aria-setsize', neighborhoods.length + 1);
+    option.setAttribute('aria-posinset', index + 2);
+    // option.addEventListener('focus', function() {
+    //   restaurantComboFocus(index + 1);
+    // });
     select.append(option);
   });
+}
+
+restaurantComboFocus = (currCount) => {
+  console.log(currCount);
+  document.getElementById('neighborhoods-select').setAttribute('aria-activedescendant', 'neighborhood-listitem-' + currCount);
 }
 
 /**
@@ -60,10 +71,13 @@ fetchCuisines = () => {
 fillCuisinesHTML = (cuisines = self.cuisines) => {
   const select = document.getElementById('cuisines-select');
 
-  cuisines.forEach(cuisine => {
+  cuisines.forEach((cuisine, index) => {
     const option = document.createElement('option');
     option.innerHTML = cuisine;
     option.value = cuisine;
+    option.id = 'cuisine-listitem-' + (index + 1);
+    option.setAttribute('aria-setsize', cuisines.length + 1);
+    option.setAttribute('aria-posinset', index + 2);
     select.append(option);
   });
 }
@@ -87,6 +101,14 @@ initMap = () => {
   }).addTo(newMap);
 
   updateRestaurants();
+}
+
+hideMapFromReader = () => {
+  const nodes = document.querySelectorAll('#map, #map a, #map img.leaflet-marker-icon');
+  // console.log(links);
+  nodes.forEach(node => {
+    node.setAttribute('tabindex', '-1');
+  });
 }
 /* window.initMap = () => {
   let loc = {
@@ -146,16 +168,17 @@ resetRestaurants = (restaurants) => {
  */
 fillRestaurantsHTML = (restaurants = self.restaurants) => {
   const ul = document.getElementById('restaurants-list');
-  restaurants.forEach(restaurant => {
-    ul.append(createRestaurantHTML(restaurant));
+  restaurants.forEach((restaurant, index) => {
+    ul.append(createRestaurantHTML(restaurant, index));
   });
   addMarkersToMap();
+  hideMapFromReader();
 }
 
 /**
  * Create restaurant HTML.
  */
-createRestaurantHTML = (restaurant) => {
+createRestaurantHTML = (restaurant, index) => {
   const li = document.createElement('li');
 
   const image = document.createElement('img');
@@ -168,20 +191,24 @@ createRestaurantHTML = (restaurant) => {
 
   const name = document.createElement('h1');
   name.innerHTML = restaurant.name;
+  name.id = 'restaurant-id-' + index;
   restoDetailWrap.append(name);
 
   const neighborhood = document.createElement('p');
   neighborhood.innerHTML = restaurant.neighborhood;
+  neighborhood.id = 'restaurant-area-' + index;
   restoDetailWrap.append(neighborhood);
 
   const address = document.createElement('p');
   address.innerHTML = restaurant.address;
+  address.id = 'restaurant-add-' + index;
   restoDetailWrap.append(address);
 
   li.append(restoDetailWrap);
 
   const more = document.createElement('a');
   more.innerHTML = 'View Details';
+  more.setAttribute('aria-labelledby', 'restaurant-id-' + index + ' restaurant-area-' + index + ' restaurant-add-' + index);
   more.href = DBHelper.urlForRestaurant(restaurant);
   li.append(more);
 

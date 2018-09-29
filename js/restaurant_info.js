@@ -31,6 +31,7 @@ initMap = () => {
       }).addTo(newMap);
       fillBreadcrumb();
       DBHelper.mapMarkerForRestaurant(self.restaurant, self.newMap);
+      hideMapFromReader();
     }
   });
 }  
@@ -99,6 +100,14 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   }
   // fill reviews
   fillReviewsHTML();
+}
+
+hideMapFromReader = () => {
+  const nodes = document.querySelectorAll('#map, #map a, #map img.leaflet-marker-icon');
+  console.log(nodes);
+  nodes.forEach(node => {
+    node.setAttribute('tabindex', '-1');
+  });
 }
 
 /**
