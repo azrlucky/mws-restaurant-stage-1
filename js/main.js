@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
  * Fetch all neighborhoods and set their HTML.
  */
 fetchNeighborhoods = () => {
+  
   DBHelper.fetchNeighborhoods((error, neighborhoods) => {
     if (error) { // Got an error
       console.error(error);
@@ -87,10 +88,10 @@ fillCuisinesHTML = (cuisines = self.cuisines) => {
  */
 initMap = () => {
   self.newMap = L.map('map', {
-        center: [40.722216, -73.987501],
-        zoom: 12,
-        scrollWheelZoom: false
-      });
+    center: [40.722216, -73.987501],
+    zoom: 12,
+    scrollWheelZoom: false
+  });
   L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.jpg70?access_token={mapboxToken}', {
     mapboxToken: 'pk.eyJ1IjoiYXpybHVja3kiLCJhIjoiY2pqZjQyMWRiNHU4OTNrcDFjN3hmYjJ5MiJ9.U-cVUgNL7EEQ5Dy3r9SOXw',
     maxZoom: 18,
@@ -188,7 +189,8 @@ createRestaurantHTML = (restaurant, index) => {
   li.append(image);
 
   const restoDetailWrap = document.createElement('div');
-  restoDetailWrap.id = 'resto-detail-wrapper';
+  restoDetailWrap.id = 'resto-detail-wrapper-' + index;
+  restoDetailWrap.className = 'resto-detail-wrapper';
 
   const name = document.createElement('h1');
   name.innerHTML = restaurant.name;
@@ -213,7 +215,7 @@ createRestaurantHTML = (restaurant, index) => {
   more.href = DBHelper.urlForRestaurant(restaurant);
   li.append(more);
 
-  
+
 
   return li
 }
@@ -232,7 +234,7 @@ addMarkersToMap = (restaurants = self.restaurants) => {
     self.markers.push(marker);
   });
 
-} 
+}
 /* addMarkersToMap = (restaurants = self.restaurants) => {
   restaurants.forEach(restaurant => {
     // Add marker to the map

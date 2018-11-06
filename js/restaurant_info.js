@@ -147,8 +147,8 @@ fillReviewsHTML = (reviews = self.restaurant.reviews) => {
     return;
   }
   const ul = document.getElementById('reviews-list');
-  reviews.forEach(review => {
-    ul.appendChild(createReviewHTML(review));
+  reviews.forEach((review, index) => {
+    ul.appendChild(createReviewHTML(review, index));
   });
   container.appendChild(ul);
 }
@@ -156,28 +156,31 @@ fillReviewsHTML = (reviews = self.restaurant.reviews) => {
 /**
  * Create review HTML and add it to the webpage.
  */
-createReviewHTML = (review) => {
+createReviewHTML = (review, index) => {
   const li = document.createElement('li');
   const div = document.createElement('div');
-  div.id = 'review-name-wrapper';
-
+  div.id = 'review-name-wrapper-' + index;
+  div.classList = 'review-name-wrapper';
+  
   const name = document.createElement('p');
   name.innerHTML = review.name;
-  div.appendChild(name);
-
+  div.appendChild(name); 
+  
   const date = document.createElement('p');
   date.innerHTML = review.date;
   div.appendChild(date);
   li.appendChild(div);
-
+  
   const rating = document.createElement('p');
   rating.innerHTML = `Rating: ${review.rating}`;
-  rating.id = 'review-rating';
+  rating.id = 'review-rating-' + index;
+  rating.classList = 'review-rating';
   li.appendChild(rating);
 
   const comments = document.createElement('p');
   comments.innerHTML = review.comments;
-  comments.id = 'review-comments';
+  comments.id = 'review-comments-' + index;
+  comments.classList = 'review-comments';
   li.appendChild(comments);
 
   return li;

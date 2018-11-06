@@ -1,4 +1,4 @@
-self.addEventListener('install',(event) => {
+self.addEventListener('install', (event) => {
     const urlsToCache = [
         '/',
         '/index.html',
@@ -16,7 +16,6 @@ self.addEventListener('install',(event) => {
         'js/main.js',
         'js/restaurant_info.js',
         'css/styles.css',
-        'data/restaurants.json',
         'img/1.jpg',
         'img/2.jpg',
         'img/3.jpg',
@@ -30,16 +29,34 @@ self.addEventListener('install',(event) => {
     ];
 
     event.waitUntil(
-        caches.open('restaurant-review-v1').then((cache) => {
+        caches.open('restaurant-review-v2').then((cache) => {
             return cache.addAll(urlsToCache);
         })
     );
 });
 
+self.addEventListener('activate', event => {
+    console.log('Activating new service worker!');
+
+    // keep only the latest cache
+    const cacheWhitelist = ['restaurant-review-v2'];
+    event.waitUntil(
+        caches.keys().then(cacheNames => {
+            return Promise.all(
+                cacheNames.map(cacheName => {
+                    if (cacheWhitelist.indexOf(cacheName) === -1) {
+                        return caches.delete(cacheName);
+                    }
+                })
+            );
+        })
+    );   
+});
+
 self.addEventListener('fetch', (event) => {
     event.respondWith(
         caches.match(event.request).then((response) => {
-            if(response) return response;
+            if (response) return response;
             return fetch(event.request);
         })
     );

@@ -24,10 +24,10 @@
       <div class="filter-options">
         <h2>Filter Results</h2>
         <div id="select-wrapper">
-          <select id="neighborhoods-select" name="neighborhoods" onchange="updateRestaurants()">
+          <select id="neighborhoods-select" aria-label="select neighborhood" name="neighborhoods" onchange="updateRestaurants()">
             <option value="all" onfocus="restaurantComboFocus(1)">All Neighborhoods</option>
           </select>
-          <select id="cuisines-select" name="cuisines" onchange="updateRestaurants()">
+          <select id="cuisines-select" aria-label="select cuisine" name="cuisines" onchange="updateRestaurants()">
             <option value="all">All Cuisines</option>
           </select>
         </div>

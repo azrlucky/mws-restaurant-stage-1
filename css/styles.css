@@ -188,7 +188,7 @@ nav h1 a {
   min-width: 100%;
 }
 
-#restaurants-list li #resto-detail-wrapper {
+#restaurants-list li .resto-detail-wrapper {
   padding: 0 15px;
   height: 80px;
 }
@@ -313,14 +313,14 @@ nav h1 a {
   width: 100%;
   border-radius: 40px 0;
 }
-#review-name-wrapper {
+.review-name-wrapper {
   box-sizing: border-box;
   padding: 20px 20px;
   width: 100%;
   background-color: #333;
   margin: 0 0 10px;;
 }
-#review-name-wrapper p {
+.review-name-wrapper p {
   display: inline-block;
   position: relative;
   left: 0;
@@ -330,14 +330,14 @@ nav h1 a {
   letter-spacing: 1px;
   line-height: 0;
 }
-#review-name-wrapper p:last-child {
+.review-name-wrapper p:last-child {
   float: right;
 
 }
 #reviews-list li>p {
   margin: 0 20px 10px;
 }
-#review-rating {
+.review-rating {
   padding: 5px 10px;
   text-transform: uppercase;
   background-color: #ffa300;
@@ -348,7 +348,7 @@ nav h1 a {
   border-radius: 3px;
 }
 
-#review-comments {
+.review-comments {
   font-size: 18px;
   color: #666;
 }
@@ -374,7 +374,7 @@ nav h1 a {
     margin-right: 1.5em;
   }
 
-  #restaurants-list li #resto-detail-wrapper {
+  #restaurants-list li .resto-detail-wrapper {
     padding: 0 15px;
     height: 100px;
   }
@@ -404,7 +404,7 @@ nav h1 a {
   .inside #map-container {
     float: right;
   }
-  #review-name-wrapper p {
+  .review-name-wrapper p {
     font-size: 16px;
   }
 
@@ -414,7 +414,7 @@ nav h1 a {
   #restaurants-list li {
     width: 31.7%;
   }
-  #review-name-wrapper p {
+  .review-name-wrapper p {
     font-size: 22px;
   }
 
