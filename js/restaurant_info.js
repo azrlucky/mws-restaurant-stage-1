@@ -105,7 +105,6 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
 
 hideMapFromReader = () => {
   const nodes = document.querySelectorAll('#map, #map a, #map img.leaflet-marker-icon');
-  console.log(nodes);
   nodes.forEach(node => {
     node.setAttribute('tabindex', '-1');
   });

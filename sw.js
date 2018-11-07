@@ -25,7 +25,9 @@ self.addEventListener('install', (event) => {
         'img/7.jpg',
         'img/8.jpg',
         'img/9.jpg',
-        'img/10.jpg'
+        'img/10.jpg',
+        'img/logo-192.png',
+        'img/logo-512.png'
     ];
 
     event.waitUntil(
@@ -50,14 +52,15 @@ self.addEventListener('activate', event => {
                 })
             );
         })
-    );   
+    );
 });
 
 self.addEventListener('fetch', (event) => {
-    event.respondWith(
-        caches.match(event.request).then((response) => {
-            if (response) return response;
-            return fetch(event.request);
-        })
-    );
+        event.respondWith(
+            caches.match(event.request).then((response) => {
+                if (response) return response;
+                return fetch(event.request);
+            })
+        );
+    // }
 });

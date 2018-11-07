@@ -19,13 +19,31 @@ class DBHelper {
    */
 
   static fetchRestaurants(callback) {
-    fetch(DBHelper.DATABASE_URL).then((response) => {
-      return response.json();
-    }).then((data) => {
-      callback(null, data);
-    }).catch(err => {
-      callback(err, null);
-    });
+      if (!('indexedDB' in window)) {
+        console.log('This browser doesn\'t support IndexedDB');
+        DBHelper.fetchRestaurantFromAPI('', callback);
+        return;
+      } else {
+        var dbPromise = idb.open('restaurants-db', 2, function (upgradeDb) {
+          console.log('making a new object store');
+          if (!upgradeDb.objectStoreNames.contains('restaurant')) {
+            upgradeDb.createObjectStore('restaurant', { keyPath: 'id' });
+          }
+        });
+        dbPromise.then(function (db) {
+          var tx = db.transaction('restaurant', 'readonly');
+          var store = tx.objectStore('restaurant');
+          return store.getAll();
+        }).then(function (val) {
+          if (val) {
+            callback(null, val);
+          }
+          DBHelper.fetchRestaurantFromAPI('', callback);
+        }).catch(err => {
+          callback(err, null);
+          DBHelper.fetchRestaurantFromAPI('', callback);
+        });
+      }
   }
 
   /**
@@ -33,6 +51,57 @@ class DBHelper {
    */
   static fetchRestaurantById(id, callback) {
 
+    if (!('indexedDB' in window)) {
+      console.log('This browser doesn\'t support IndexedDB');
+      DBHelper.fetchRestaurantFromAPI(id, callback);
+    } else {
+      var dbPromise = idb.open('restaurants-db', 2, function (upgradeDb) {
+        console.log('making a new object store');
+        if (!upgradeDb.objectStoreNames.contains('restaurant')) {
+          upgradeDb.createObjectStore('restaurant', { keyPath: 'id' });
+        }
+      });
+      dbPromise.then(function (db) {
+        var tx = db.transaction('restaurant', 'readonly');
+        var store = tx.objectStore('restaurant');
+        return store.get(parseInt(id, 10));
+      }).then(function (val) {
+        if (val) {
+          callback(null, val);
+        } else {
+          DBHelper.fetchRestaurantFromAPI(id, function (err, data) {
+            if (err) {
+              console.log(err);
+              return;
+            }
+            DBHelper.fetchAndSaveDataToIdb(data, callback);
+          });
+        }
+      }).catch(err => {
+        callback(err, null);
+      });
+    }
+  }
+
+  static fetchAndSaveDataToIdb(data, callback) {
+    var dbPromise = idb.open('restaurants-db', 2, function (upgradeDb) {
+      console.log('making a new object store');
+      if (!upgradeDb.objectStoreNames.contains('restaurant')) {
+        upgradeDb.createObjectStore('restaurant', { keyPath: 'id' });
+      }
+    });
+    dbPromise.then(function (db) {
+      var tx = db.transaction('restaurant', 'readwrite');
+      var store = tx.objectStore('restaurant');
+      store.add(data);
+      return tx.complete;
+    }).then(function (e) {
+      console.log('data inserted');
+    });
+    callback(null, data);
+  }
+
+  static fetchRestaurantFromAPI(id, callback) {
     fetch(DBHelper.DATABASE_URL + '/' + id).then((response) => {
       return response.json();
     }).then((data) => {
