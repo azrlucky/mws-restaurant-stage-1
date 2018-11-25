@@ -50,7 +50,6 @@ class DBHelper {
    * Fetch a restaurant by its ID.
    */
   static fetchRestaurantById(id, callback) {
-
     if (!('indexedDB' in window)) {
       console.log('This browser doesn\'t support IndexedDB');
       DBHelper.fetchRestaurantFromAPI(id, callback);
