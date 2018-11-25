@@ -8,6 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
   <!-- Main CSS file -->
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
   <link rel="stylesheet" href="css/styles.css" type="text/css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
     crossorigin="" />
@@ -49,6 +50,11 @@
         <div id="resto-card-wrapper">
           <img id="restaurant-img">
           <p id="restaurant-cuisine"></p>
+          <label for="fav-check" id="fav-label">
+              
+            <input type="checkbox" id="fav-check" onchange="onFavChange(event)">
+            <span role="checkbox" aria-checked="false" tabindex="0" aria-label="Mark as favourite">♥</span>
+          </label>
         </div>
         <p id="restaurant-address"></p>
         <table id="restaurant-hours"></table>
@@ -56,6 +62,19 @@
       <!-- end restaurant -->
       <!-- Beginning reviews -->
       <section id="reviews-container">
+        <h3>Reviews <button class="add-review-btn" onclick="toggleReviewForm()"><i class="fa fa-plus-circle" aria-hidden="true"></i>
+        </button></h3>
+        <form id="review-form" onsubmit="false">
+          <div class="form-wrapper">
+            <label for="reviewer-name">Name</label>
+            <input type="text" id="reviewer-name" placeholder="Enter your Name">
+            <label for="review-rating">Rating</label>
+            <input type="number" id="review-rating" min="1" max="5" placeholder="Select ratiing between 1 to 5">
+            <label for="review-comment">comment</label>
+            <input type="text" id="review-comment" placeholder="Write comment..">
+            <input type="button" value="Post Comment" onclick="sendNewReview()">
+          </div>
+        </form>
         <ul id="reviews-list"></ul>
       </section>
       <!-- End reviews -->
@@ -83,7 +102,6 @@
   <!-- Google Maps -->
   <!--  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA_tKbW6A5pQ-eupxI56myUnHLqYCzOjKo&libraries=places&callback=initMap"></script> -->
   <!-- End scripts -->
-
 </body>
 
 </html>

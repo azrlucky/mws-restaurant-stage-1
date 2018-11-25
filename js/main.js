@@ -37,7 +37,7 @@ fillNeighborhoodsHTML = (neighborhoods = self.neighborhoods) => {
     const option = document.createElement('option');
     option.innerHTML = neighborhood;
     option.value = neighborhood;
-    option.id = 'neighborhood-listitem-' + (index + 1);
+    // option.id = 'neighborhood-listitem-' + (index + 1);
     option.setAttribute('aria-setsize', neighborhoods.length + 1);
     option.setAttribute('aria-posinset', index + 2);
     // option.addEventListener('focus', function() {
@@ -76,7 +76,7 @@ fillCuisinesHTML = (cuisines = self.cuisines) => {
     const option = document.createElement('option');
     option.innerHTML = cuisine;
     option.value = cuisine;
-    option.id = 'cuisine-listitem-' + (index + 1);
+    // option.id = 'cuisine-listitem-' + (index + 1);
     option.setAttribute('aria-setsize', cuisines.length + 1);
     option.setAttribute('aria-posinset', index + 2);
     select.append(option);

@@ -1,3 +1,5 @@
+importScripts('js/idb.js');
+
 self.addEventListener('install', (event) => {
     const urlsToCache = [
         '/',
@@ -14,6 +16,7 @@ self.addEventListener('install', (event) => {
         '/restaurant.html?id=10',
         'js/dbhelper.js',
         'js/main.js',
+        'js/idb.js',
         'js/restaurant_info.js',
         'css/styles.css',
         'img/1.jpg',
@@ -56,11 +59,11 @@ self.addEventListener('activate', event => {
 });
 
 self.addEventListener('fetch', (event) => {
-        event.respondWith(
-            caches.match(event.request).then((response) => {
-                if (response) return response;
-                return fetch(event.request);
-            })
-        );
+    event.respondWith(
+        caches.match(event.request).then((response) => {
+            if (response) return response;
+            return fetch(event.request);
+        })
+    );
     // }
 });
