@@ -93,7 +93,7 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   image.alt = restaurant.name + ' Restaurant';
 
   const favCheck = document.getElementById('fav-check');
-  favCheck.ckecked = restaurant.is_favorite;
+  favCheck.checked = restaurant.is_favorite;
 
   const favSpan = document.querySelector('#fav-check+span');
   favSpan.setAttribute('aria-checked', restaurant.is_favorite);
